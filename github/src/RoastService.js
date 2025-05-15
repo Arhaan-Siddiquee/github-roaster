@@ -1,7 +1,12 @@
 import axios from 'axios'
 
 export async function generateRoast(auraData) {
-  const API_KEY = 'YOUR_GOOGLE_API_KEY'
+  const API_KEY = import.meta.env.VITE_GOOGLE_API_KEY
+  if (!API_KEY) {
+    console.error('Google API key not configured')
+    return "Couldn't generate roast (API not configured)"
+  }
+
   const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`
 
   try {
@@ -18,11 +23,7 @@ export async function generateRoast(auraData) {
     - Funny but not mean-spirited
     - Relate to programming culture
     - Maximum 2 sentences
-    - Include emoji if appropriate
-    
-    Examples:
-    "Bruh, your commit messages are giving 'fixed stuff' energy 💀"
-    "Not you using tabs like it's 1995... we need to have a talk 😬"`
+    - Include emoji if appropriate`
 
     const response = await axios.post(API_URL, {
       contents: [{
@@ -31,7 +32,7 @@ export async function generateRoast(auraData) {
         }]
       }],
       generationConfig: {
-        temperature: 0.9, 
+        temperature: 0.9,
         topP: 0.8,
         topK: 40,
         maxOutputTokens: 120
@@ -42,15 +43,10 @@ export async function generateRoast(auraData) {
       }
     })
 
-    const generatedText = response.data?.candidates?.[0]?.content?.parts?.[0]?.text
-    
-    if (!generatedText) {
-      throw new Error('No roast generated - try again!')
-    }
-
-    return generatedText
+    return response.data?.candidates?.[0]?.content?.parts?.[0]?.text || 
+           "Your code's so basic, even this roast function failed 💀"
   } catch (error) {
     console.error('Roast generation failed:', error)
-    return `Couldn't generate a roast (API issue), but your code's probably mid anyway 💀`
+    return `API Error: ${error.response?.data?.error?.message || error.message}`
   }
 }

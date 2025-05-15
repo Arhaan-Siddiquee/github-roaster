@@ -36,11 +36,8 @@ export default function App() {
       <div className="w-full max-w-xl mx-auto mt-16">
         <div className="mb-12">
           <h1 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-cyan-400 text-center tracking-tight">
-            GitHub Aura
+            Calculate your GitHub Aura
           </h1>
-          <p className="text-center mt-3 text-zinc-400 text-sm">
-            Decode your coding vibe in Gen-Z slang
-          </p>
         </div>
         
         <form onSubmit={handleSubmit} className="mb-10 relative">
