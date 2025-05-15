@@ -1,7 +1,6 @@
 import axios from 'axios'
 
 export async function generateRoast(auraData) {
-  // Replace with your actual Google API key
   const API_KEY = 'YOUR_GOOGLE_API_KEY'
   const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`
 
@@ -32,7 +31,7 @@ export async function generateRoast(auraData) {
         }]
       }],
       generationConfig: {
-        temperature: 0.9,  // More creative
+        temperature: 0.9, 
         topP: 0.8,
         topK: 40,
         maxOutputTokens: 120
@@ -43,7 +42,6 @@ export async function generateRoast(auraData) {
       }
     })
 
-    // Extract the generated text
     const generatedText = response.data?.candidates?.[0]?.content?.parts?.[0]?.text
     
     if (!generatedText) {
@@ -53,7 +51,6 @@ export async function generateRoast(auraData) {
     return generatedText
   } catch (error) {
     console.error('Roast generation failed:', error)
-    // Fallback to a generic roast if API fails
     return `Couldn't generate a roast (API issue), but your code's probably mid anyway 💀`
   }
 }
