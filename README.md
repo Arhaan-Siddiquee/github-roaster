@@ -2,8 +2,7 @@
 
 A fun React.js application that analyzes GitHub profiles and roasts your Github Account based on your coding activity and Profile.
 
-![image](https://github.com/user-attachments/assets/0d23f1fe-84dc-4ae7-9498-243f06a0be09)
-
+## It will take 10-15 seconds to analyze
 
 ## Features
 
